@@ -1,0 +1,1 @@
+export const DEFAULT_SWIPE_DISTANCE = 150;
