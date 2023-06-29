@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.8.2",
+    "firebase": "^9.23.0",
     "solid-js": "^1.7.6"
   }
 }

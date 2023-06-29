@@ -1,4 +1,5 @@
-import { KanjiExample, KanjiExampleType } from "@/modules/detail";
+import { KanjiExampleType } from "@/models/kanji";
+import { KanjiExample } from "@/modules/detail";
 import { useSwipe } from "@/shared/hooks";
 import { Component, For } from "solid-js";
 

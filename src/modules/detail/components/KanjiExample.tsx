@@ -1,4 +1,4 @@
-import { KanjiExampleType } from "@/modules/detail/";
+import { KanjiExampleType } from "@/models/kanji";
 import { Component, splitProps } from "solid-js";
 
 export const KanjiExample: Component<{
