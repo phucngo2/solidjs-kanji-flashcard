@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
 
-const KanjiManagementContainer: Component<{}> = (props) => {
-  return <div></div>;
+export const KanjiManagementContainer: Component<{}> = () => {
+  return <div>Kanji Manage</div>;
 };

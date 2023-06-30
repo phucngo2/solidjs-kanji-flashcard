@@ -1,1 +1,1 @@
-export * from "./KanjiForm";
+export * from "./KanjiFormContainer";
