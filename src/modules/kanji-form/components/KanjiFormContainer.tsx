@@ -1,40 +1,60 @@
+import { Kanji } from "@/models/kanji";
 import { Input } from "@/shared/components";
-import { useForm } from "@/shared/hooks";
-import { Component, For } from "solid-js";
+import { FormValidation, required, useForm } from "@/shared/hooks";
+import { Component } from "solid-js";
+import { KanjiExamples, KanjiInputGroupWrapper } from ".";
 
 export const KanjiFormContainer: Component<{}> = () => {
-  const { onSubmit, register, values, setFormValues } = useForm({
-    handleSubmit,
-  });
+  const { onSubmit, register, values, handleAdd, handleDelete } =
+    useForm<Kanji>({
+      handleSubmit,
+      validation,
+    });
 
   function handleSubmit(values: any) {
-    console.log({ ...values });
+    console.log(values);
   }
-
-  function handleAdd() {}
 
   return (
     <form
-      class="flex h-full w-full flex-col items-center overflow-auto p-4"
+      class="flex h-full w-full flex-col items-center space-y-5 overflow-auto p-5"
       onSubmit={onSubmit}
     >
-      <h3 class="mb-4 text-2xl font-bold">Kanji</h3>
-      <Input label="Kanji Character" {...register("character")} />
-      <Input label="Meaning" {...register("meaning")} />
-      <Input label="Onyomi" {...register("onyomi")} />
-      <Input label="Kunyomi" {...register("kunyomi")} />
-      <For each={values().examples || []}>
-        {(example, index) => (
-          <div>
-            <Input
-              label={`Example ${index() + 1}`}
-              {...register(`examples.${index()}.word`)}
-            />
-          </div>
-        )}
-      </For>
-      <button onClick={handleAdd}>Add</button>
-      <button type="submit">Submit</button>
+      <h3 class="text-2xl font-bold">Kanji</h3>
+      <KanjiInputGroupWrapper>
+        <Input
+          label="Kanji Character"
+          {...register("character")}
+          className="w-1/3"
+        />
+        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
+        <Input label="Level" {...register("level")} className="w-1/3" />
+      </KanjiInputGroupWrapper>
+      <KanjiInputGroupWrapper>
+        <Input label="Onyomi" {...register("onyomi")} className="w-1/2" />
+        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/2" />
+      </KanjiInputGroupWrapper>
+      <KanjiExamples
+        register={register}
+        values={values}
+        handleAdd={handleAdd}
+        handleDelete={handleDelete}
+      />
+      <div class="flex w-full flex-row items-center justify-end space-x-4">
+        <button class="btn btn-sm" type="button">
+          Cancel
+        </button>
+        <button class="btn btn-primary btn-sm" type="submit">
+          Submit
+        </button>
+      </div>
     </form>
   );
+};
+
+const validation: FormValidation<Kanji> = {
+  character: {
+    validator: required,
+    errorMessage: "Character is required!",
+  },
 };

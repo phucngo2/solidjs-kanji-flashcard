@@ -1,15 +1,16 @@
 import { BaseModel } from "@/shared/types";
 
-export interface KanjiExampleType {
+export interface KanjiExampleType extends BaseModel {
   word: string;
   furigana: string;
-  vi: string;
-  viKanji: string;
+  meaning: string;
+  meaningKanji: string;
 }
 
 export interface Kanji extends BaseModel {
   index: number;
   character: string;
+  meaning: string;
   onyomi: string;
   kunyomi: string;
   level: number;
