@@ -1,5 +1,5 @@
 import { KanjiExampleType } from "@/models/kanji";
-import { Component, splitProps } from "solid-js";
+import { Component, Show, splitProps } from "solid-js";
 
 export const KanjiExample: Component<{
   kanjiExample: KanjiExampleType;
@@ -14,7 +14,9 @@ export const KanjiExample: Component<{
       </div>
       <div class="flex flex-col items-end">
         <div class="max-w-[12rem] text-right">{kanjiExample.vi}</div>
-        <div class="text-xs">({kanjiExample.viKanji})</div>
+        <Show when={!!kanjiExample.viKanji}>
+          <div class="text-xs">({kanjiExample.viKanji})</div>
+        </Show>
       </div>
     </div>
   );
