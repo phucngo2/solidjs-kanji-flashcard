@@ -1,6 +1,7 @@
-import { Kanji } from "@/models/kanji";
+import { Kanji, KanjiQuery } from "@/models/kanji";
 import { Input } from "@/shared/components";
 import { FormValidation, required, useForm } from "@/shared/hooks";
+import { capitalize } from "lodash";
 import { Component } from "solid-js";
 import { KanjiExamples, KanjiInputGroupWrapper } from ".";
 
@@ -8,11 +9,11 @@ export const KanjiFormContainer: Component<{}> = () => {
   const { onSubmit, register, values, handleAdd, handleDelete } =
     useForm<Kanji>({
       handleSubmit,
-      validation,
+      validation: validation(),
     });
 
   function handleSubmit(values: any) {
-    console.log(values);
+    KanjiQuery.create(values);
   }
 
   return (
@@ -27,12 +28,13 @@ export const KanjiFormContainer: Component<{}> = () => {
           {...register("character")}
           className="w-1/3"
         />
-        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
+        <Input label="Index" {...register("index")} className="w-1/3" />
         <Input label="Level" {...register("level")} className="w-1/3" />
       </KanjiInputGroupWrapper>
       <KanjiInputGroupWrapper>
-        <Input label="Onyomi" {...register("onyomi")} className="w-1/2" />
-        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/2" />
+        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
+        <Input label="Onyomi" {...register("onyomi")} className="w-1/3" />
+        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/3" />
       </KanjiInputGroupWrapper>
       <KanjiExamples
         register={register}
@@ -52,9 +54,25 @@ export const KanjiFormContainer: Component<{}> = () => {
   );
 };
 
-const validation: FormValidation<Kanji> = {
-  character: {
-    validator: required,
-    errorMessage: "Character is required!",
-  },
-};
+function validation(): FormValidation<any> {
+  var fields: string[] = [
+    "character",
+    "index",
+    "level",
+    "meaning",
+    "examples.word",
+    "examples.furigana",
+    "examples.meaning",
+  ];
+
+  const obj: FormValidation<any> = {};
+  fields.forEach(
+    (item) =>
+      (obj[item] = {
+        validator: required,
+        errorMessage: `${capitalize(item)} is required!`,
+      })
+  );
+
+  return obj;
+}

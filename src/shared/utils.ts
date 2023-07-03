@@ -20,7 +20,7 @@ export function getProperty(obj: any, path: string) {
 
 export function setProperty(obj: any, path: string, value: any) {
   var properties = path.split(".");
-  var target = { ...obj };
+  var target = { ...obj, [properties[0]]: [...(obj[properties[0]] || [])] };
   target[properties[0]][properties[1]] = {
     ...target[properties[0]][properties[1]],
     [properties[2]]: value,

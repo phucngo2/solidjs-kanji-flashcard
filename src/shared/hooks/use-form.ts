@@ -1,6 +1,10 @@
 import { getProperty, setProperty } from "@/shared/utils";
 import { Accessor, JSX, Setter, createSignal } from "solid-js";
 
+interface FormErrorStringIndexer {
+  [key: string]: string | undefined;
+}
+
 type FormValidator<P extends keyof T, T> = (value: T[P], form: T) => boolean;
 type FormValidatorObject<P extends keyof T, T> = {
   validator: FormValidator<P, T>;
@@ -25,7 +29,7 @@ type FormSubmitHanler = (
 type OnChangeHandler = JSX.ChangeEventHandlerUnion<HTMLInputElement, Event>;
 
 type FormErrors<T> = {
-  [P in keyof T]?: string;
+  [P in keyof T]?: string | FormErrorStringIndexer[];
 };
 
 export type FormRegister = (name: string) => {
@@ -59,11 +63,36 @@ export const useForm = <T extends Record<string, any>>({
     const newValue = type === "checkbox" ? !!checked : value;
     if (name.includes(".")) {
       setFormValues((prev) => setProperty(prev, name, newValue));
-      setErrors((prev) => setProperty(prev, name, ""));
+      if (!!getProperty(errors(), name)) {
+        setErrors((prev) => setProperty(prev, name, ""));
+      }
     } else {
       setFormValues((prev) => ({ ...prev, [name]: newValue }));
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      if (!!errors()[name]) {
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+      }
     }
+  };
+
+  const validate = (
+    validators:
+      | FormValidatorObject<Extract<keyof T, string>, T>
+      | FormValidatorObject<Extract<keyof T, string>, T>[],
+    value: any
+  ): [boolean, string?] => {
+    if (Array.isArray(validators)) {
+      for (let singleValidator of validators) {
+        if (!singleValidator.validator(value, formValues())) {
+          return [false, singleValidator.errorMessage];
+        }
+      }
+    } else {
+      if (!validators.validator(value, formValues())) {
+        return [false, validators.errorMessage];
+      }
+    }
+
+    return [true, undefined];
   };
 
   const isValid = (): boolean => {
@@ -75,21 +104,35 @@ export const useForm = <T extends Record<string, any>>({
     for (let key in validation) {
       const validators = validation[key];
       if (!validators) continue;
-      if (Array.isArray(validators)) {
-        for (let singleValidator of validators) {
-          if (!singleValidator.validator(formValues()[key], formValues())) {
-            currentErrors[key] = singleValidator.errorMessage;
-            isValid = false;
+      if (key.includes(".")) {
+        const keys = key.split(".");
+        if (Array.isArray(formValues()[keys[0]])) {
+          if (!currentErrors[keys[0]]) {
+            currentErrors = {
+              ...currentErrors,
+              [keys[0]]: formValues()[keys[0]].map(() => ({})),
+            };
+          }
+          for (let i = 0; i < formValues()[keys[0]].length; i++) {
+            var [res, msg] = validate(
+              validators,
+              formValues()[keys[0]][i][keys[1]]
+            );
+            if (!res) {
+              (currentErrors[keys[0]]![i] as FormErrorStringIndexer)[keys[1]] =
+                msg;
+              isValid = false;
+            }
           }
         }
       } else {
-        if (!validators.validator(formValues()[key], formValues())) {
-          currentErrors[key] = validators.errorMessage;
+        var [res, msg] = validate(validators, formValues()[key]);
+        if (!res) {
+          currentErrors[key] = msg;
           isValid = false;
         }
       }
     }
-
     setErrors(() => currentErrors);
     return isValid;
   };

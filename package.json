@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.7",
     "postcss": "^8.4.24",
@@ -24,6 +25,7 @@
     "@solidjs/router": "^0.8.2",
     "classnames": "^2.3.2",
     "firebase": "^9.23.0",
+    "lodash": "^4.17.21",
     "solid-js": "^1.7.6"
   }
 }
