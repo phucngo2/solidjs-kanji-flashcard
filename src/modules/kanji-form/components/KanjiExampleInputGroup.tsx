@@ -1,5 +1,4 @@
-import { Input } from "@/shared/components";
-import { IconTrash } from "@/shared/components/Icons";
+import { IconTrash, Input } from "@/shared/components";
 import { FormRegister } from "@/shared/hooks";
 import { Accessor, Component } from "solid-js";
 import { KanjiInputGroupWrapper } from ".";

@@ -1,4 +1,5 @@
 import { Kanji, KanjiQuery } from "@/models/kanji";
+import { useKanjiCreateMutation } from "@/modules/kanji-form";
 import { Input } from "@/shared/components";
 import { FormValidation, required, useForm } from "@/shared/hooks";
 import { capitalize } from "lodash";
@@ -6,14 +7,20 @@ import { Component } from "solid-js";
 import { KanjiExamples, KanjiInputGroupWrapper } from ".";
 
 export const KanjiFormContainer: Component<{}> = () => {
-  const { onSubmit, register, values, handleAdd, handleDelete } =
+  const { onSubmit, register, values, handleAdd, handleDelete, clearForm } =
     useForm<Kanji>({
       handleSubmit,
       validation: validation(),
     });
 
+  const kanjiCreateMutation = useKanjiCreateMutation();
+
   function handleSubmit(values: any) {
-    KanjiQuery.create(values);
+    kanjiCreateMutation.mutate(values as Kanji, {
+      onSuccess: () => {
+        clearForm();
+      },
+    });
   }
 
   return (
@@ -43,10 +50,27 @@ export const KanjiFormContainer: Component<{}> = () => {
         handleDelete={handleDelete}
       />
       <div class="flex w-full flex-row items-center justify-end space-x-4">
-        <button class="btn btn-sm" type="button">
+        <button
+          class="btn btn-sm"
+          type="button"
+          disabled={kanjiCreateMutation.isLoading}
+          onClick={async () => {
+            var x = await KanjiQuery.search({
+              page: 1,
+              perPage: 3,
+              searchKeyword: "si",
+            });
+
+            console.log(x);
+          }}
+        >
           Cancel
         </button>
-        <button class="btn btn-primary btn-sm" type="submit">
+        <button
+          class="btn btn-primary btn-sm"
+          type="submit"
+          disabled={kanjiCreateMutation.isLoading}
+        >
           Submit
         </button>
       </div>

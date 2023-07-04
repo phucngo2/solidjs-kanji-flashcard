@@ -46,6 +46,7 @@ interface FormHook<T> {
   register: FormRegister;
   handleAdd: (path: string) => void;
   handleDelete: (path: string, id: number) => void;
+  clearForm: () => void;
 }
 
 export const useForm = <T extends Record<string, any>>({
@@ -173,6 +174,11 @@ export const useForm = <T extends Record<string, any>>({
     }));
   };
 
+  const clearForm = () => {
+    setFormValues(() => ({} as T));
+    setErrors(() => ({}));
+  };
+
   return {
     values: formValues,
     errors,
@@ -181,6 +187,7 @@ export const useForm = <T extends Record<string, any>>({
     register,
     handleAdd,
     handleDelete,
+    clearForm,
   };
 };
 

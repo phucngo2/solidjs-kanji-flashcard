@@ -1,4 +1,4 @@
-import { KanjiManagementContainer } from "@/modules/kanji-managment";
+import { KanjiManagementContainer } from "@/modules/kanji-management";
 import { Component } from "solid-js";
 
 const KanjiManagement: Component<{}> = () => {
