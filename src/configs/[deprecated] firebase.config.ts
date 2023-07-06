@@ -1,10 +1,12 @@
 // Import the functions you need from the SDKs you need
+//@ts-ignore
 import { initializeApp } from "firebase/app";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+//@ts-ignore
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+//@ts-ignore
 import { getFirestore } from "firebase/firestore";
 
 const provider = new GoogleAuthProvider();

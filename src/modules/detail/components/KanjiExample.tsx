@@ -7,15 +7,15 @@ export const KanjiExample: Component<{
   const [local] = splitProps(props, ["kanjiExample"]);
   const { kanjiExample } = local;
   return (
-    <div class="flex w-full flex-row justify-between">
-      <div class="flex flex-col items-center">
+    <div class="flex w-full flex-row justify-between space-x-2">
+      <div class="max-w-[50%] flex flex-col items-start">
         <div>{kanjiExample.word}</div>
         <div class="text-xs">({kanjiExample.furigana})</div>
       </div>
-      <div class="flex flex-col items-end">
-        <div class="max-w-[12rem] text-right">{kanjiExample.vi}</div>
-        <Show when={!!kanjiExample.viKanji}>
-          <div class="text-xs">({kanjiExample.viKanji})</div>
+      <div class="max-w-[50%] flex flex-col items-end">
+        <div class="text-right">{kanjiExample.meaning}</div>
+        <Show when={!!kanjiExample.meaning_alt}>
+          <div class="text-xs">({kanjiExample.meaning_alt})</div>
         </Show>
       </div>
     </div>

@@ -9,6 +9,8 @@ export const Input: Component<{
   value: string;
   className?: string;
   error?: string;
+  min?: number;
+  max?: number;
 }> = (props) => {
   const classes = classNames(props.className || "");
   return (
@@ -20,6 +22,8 @@ export const Input: Component<{
         placeholder={`Enter ${props.label}`}
         value={props.value || ""}
         onChange={props.onChange}
+        min={props.min}
+        max={props.max}
         class="input-bordered input my-0.5 w-full input-sm"
       />
       <Show fallback={undefined} when={!!props.error}>

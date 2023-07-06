@@ -3,7 +3,7 @@ export interface BaseModel {
 }
 
 export interface SearchQuery {
-  searchKeyword: string;
+  searchKeyword?: string;
   page: number;
   perPage: number;
 }

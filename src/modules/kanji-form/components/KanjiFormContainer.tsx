@@ -17,8 +17,8 @@ export const KanjiFormContainer: Component<{}> = () => {
 
   function handleSubmit(values: any) {
     kanjiCreateMutation.mutate(values as Kanji, {
-      onSuccess: () => {
-        clearForm();
+      onSuccess: (data) => {
+        if (data) clearForm();
       },
     });
   }
@@ -35,13 +35,17 @@ export const KanjiFormContainer: Component<{}> = () => {
           {...register("character")}
           className="w-1/3"
         />
-        <Input label="Index" {...register("index")} className="w-1/3" />
-        <Input label="Level" {...register("level")} className="w-1/3" />
+        <Input
+          label="Level"
+          type="number"
+          {...register("level")}
+          className="w-1/3"
+        />
+        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
       </KanjiInputGroupWrapper>
       <KanjiInputGroupWrapper>
-        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
-        <Input label="Onyomi" {...register("onyomi")} className="w-1/3" />
-        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/3" />
+        <Input label="Onyomi" {...register("onyomi")} className="w-1/2" />
+        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/2" />
       </KanjiInputGroupWrapper>
       <KanjiExamples
         register={register}
@@ -54,15 +58,6 @@ export const KanjiFormContainer: Component<{}> = () => {
           class="btn btn-sm"
           type="button"
           disabled={kanjiCreateMutation.isLoading}
-          onClick={async () => {
-            var x = await KanjiQuery.search({
-              page: 1,
-              perPage: 3,
-              searchKeyword: "si",
-            });
-
-            console.log(x);
-          }}
         >
           Cancel
         </button>
@@ -81,7 +76,6 @@ export const KanjiFormContainer: Component<{}> = () => {
 function validation(): FormValidation<any> {
   var fields: string[] = [
     "character",
-    "index",
     "level",
     "meaning",
     "examples.word",
@@ -90,13 +84,21 @@ function validation(): FormValidation<any> {
   ];
 
   const obj: FormValidation<any> = {};
-  fields.forEach(
-    (item) =>
-      (obj[item] = {
+  fields.forEach((item) => {
+    let validators = [
+      {
         validator: required,
         errorMessage: `${capitalize(item)} is required!`,
-      })
-  );
+      },
+    ];
+    if (item == "level") {
+      validators.push({
+        validator: (level: number) => level > 0 && level < 6,
+        errorMessage: `Level must be from 1 - 5!!`,
+      });
+    }
+    obj[item] = validators;
+  });
 
   return obj;
 }

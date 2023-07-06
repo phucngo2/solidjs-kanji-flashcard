@@ -5,6 +5,7 @@ interface SwipeHookProps {
   minDistance?: number;
   handleLeftSwipe?: () => void;
   handleRightSwipe?: () => void;
+  handleSwipe?: () => void;
 }
 
 export function useSwipe(props?: SwipeHookProps) {
@@ -29,17 +30,14 @@ export function useSwipe(props?: SwipeHookProps) {
     const isLeftSwipe = distance > minDistanceValue;
     const isRightSwipe = distance < -minDistanceValue;
 
-    if (isLeftSwipe || isRightSwipe) {
-      console.log("swipe", isLeftSwipe ? "left" : "right");
-    }
-
-    // add your conditional logic here
     if (isLeftSwipe) {
       props?.handleLeftSwipe?.();
+      props?.handleSwipe?.();
     }
 
     if (isRightSwipe) {
       props?.handleRightSwipe?.();
+      props?.handleSwipe?.();
     }
   };
 

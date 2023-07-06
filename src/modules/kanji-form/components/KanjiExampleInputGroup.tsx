@@ -39,7 +39,7 @@ export const KanjiExampleInputGroup: Component<{
         />
         <Input
           label={`Meaning kanji`}
-          {...props.register(`${props.formPath}.${props.index()}.meaningKanji`)}
+          {...props.register(`${props.formPath}.${props.index()}.meaning_alt`)}
           className="w-1/2"
         />
       </KanjiInputGroupWrapper>

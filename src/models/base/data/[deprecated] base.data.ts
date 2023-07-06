@@ -1,4 +1,4 @@
-import { db } from "@/configs";
+import { db } from "@/configs/[deprecated] firebase.config";
 import { BaseModel, SearchQuery } from "@/shared/types";
 import { normalizeDocs } from "@/shared/utils";
 import {
@@ -12,6 +12,7 @@ import {
   query,
   updateDoc,
   where,
+  //@ts-ignore
 } from "firebase/firestore";
 import { flattenDeep } from "lodash";
 
@@ -63,8 +64,8 @@ export function BaseQuery<T extends BaseModel>({
           const q = query(
             collectionRef,
             orderBy(field),
-            where(field, ">=", searchKeyword.toUpperCase()),
-            where(field, "<=", searchKeyword.toUpperCase() + "\uf8ff")
+            where(field, ">=", (searchKeyword || "").toUpperCase()),
+            where(field, "<=", (searchKeyword || "").toUpperCase() + "\uf8ff")
           );
 
           return getDocs(q);
@@ -72,6 +73,7 @@ export function BaseQuery<T extends BaseModel>({
       );
 
       const result = flattenDeep(
+        //@ts-ignore
         queriesResult.map((queryResult) => normalizeDocs(queryResult.docs))
       );
 

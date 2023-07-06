@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@solidjs/router": "^0.8.2",
+    "@supabase/supabase-js": "^2.26.0",
     "@tanstack/solid-query": "^4.29.19",
     "classnames": "^2.3.2",
-    "firebase": "^9.23.0",
     "lodash": "^4.17.21",
     "solid-js": "^1.7.6"
   }
