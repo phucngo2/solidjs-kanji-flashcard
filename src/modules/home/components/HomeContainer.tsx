@@ -1,10 +1,11 @@
 import { DEFAULT_SWIPE_DISTANCE, appConfig, levelList } from "@/configs";
-import { Input } from "@/shared/components";
-import { FormValidation, required, useForm } from "@/shared/hooks";
-import { Component, For } from "solid-js";
 import { LevelSwitch } from "@/modules/home";
-import { StorageHelper } from "@/shared/utils";
+import { Input } from "@/shared/components";
+import { FormValidation, required, useForm, useToast } from "@/shared/hooks";
 import { AppConfig } from "@/shared/types";
+import { StorageHelper } from "@/shared/utils";
+import { useNavigate } from "@solidjs/router";
+import { Component, For } from "solid-js";
 
 const initialValues: AppConfig = {
   ...appConfig,
@@ -12,11 +13,15 @@ const initialValues: AppConfig = {
 };
 
 export const HomeContainer: Component<{}> = () => {
+  const navigate = useNavigate();
+  const { contentProvider, open } = useToast();
+
   const { register, onSubmit } = useForm<AppConfig>({
     handleSubmit,
     validation,
     initialValues,
   });
+
   function handleSubmit(values: AppConfig) {
     StorageHelper.setItem("appConfig", values);
     StorageHelper.setItem("swipeDistance", parseInt(`${values.swipeDistance}`));
@@ -24,6 +29,15 @@ export const HomeContainer: Component<{}> = () => {
 
   function handleSave() {
     onSubmit();
+    open({
+      type: "success",
+      message: "Saved successfully!",
+    });
+  }
+
+  function handleSaveAndStart() {
+    handleSave();
+    navigate("/random");
   }
 
   return (
@@ -46,10 +60,15 @@ export const HomeContainer: Component<{}> = () => {
         <button type="button" class="btn btn-secondary" onClick={handleSave}>
           Save
         </button>
-        <button type="button" class="btn btn-primary">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={handleSaveAndStart}
+        >
           Save and start
         </button>
       </div>
+      {contentProvider}
     </form>
   );
 };
