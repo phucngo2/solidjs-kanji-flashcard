@@ -68,7 +68,9 @@ export const KanjiQuery = {
   delete: async () => {},
   update: async () => {},
   random: async (): Promise<Kanji> => {
-    const res = await supabase.rpc("getrandomkanji").single();
+    const res = await supabase
+      .rpc("getrandomkanjiwithlevel", { levellist: ["5"] })
+      .single();
     return res.data as Kanji;
   },
 };
