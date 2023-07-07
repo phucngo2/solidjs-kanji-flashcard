@@ -22,7 +22,18 @@ export const KanjiQuery = {
 
     return { data, count };
   },
-  get: async () => {},
+  get: async (kanjiId: string | number): Promise<Kanji> => {
+    const { data } = await supabase
+      .from("kanjis")
+      .select(
+        "id, character, meaning, level, kunyomi, onyomi, examples(id, word, furigana, meaning, meaning_alt)"
+      )
+      .eq("id", kanjiId)
+      .limit(1)
+      .single();
+
+    return data as Kanji;
+  },
   create: async (kanji: Kanji) => {
     const examples = kanji.examples;
     const insertKanji = await supabase
@@ -57,7 +68,7 @@ export const KanjiQuery = {
   delete: async () => {},
   update: async () => {},
   random: async (): Promise<Kanji> => {
-    const res = await supabase.rpc("getrandomkanji");
-    return res.data[0];
+    const res = await supabase.rpc("getrandomkanji").single();
+    return res.data as Kanji;
   },
 };

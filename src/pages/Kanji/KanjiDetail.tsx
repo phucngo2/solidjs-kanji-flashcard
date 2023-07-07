@@ -1,8 +1,8 @@
 import { KanjiDetailContainer } from "@/modules/detail";
 import { Component } from "solid-js";
 
-const Detail: Component<{}> = () => {
+const KanjiDetail: Component<{}> = () => {
   return <KanjiDetailContainer />;
 };
 
-export default Detail;
+export default KanjiDetail;
