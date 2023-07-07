@@ -1,6 +1,6 @@
-import { supabase } from "@/configs";
+import { appConfig, supabase } from "@/configs";
 import { Kanji } from "@/models/kanji";
-import { SearchQuery } from "@/shared/types";
+import { AppConfig, SearchQuery } from "@/shared/types";
 import { calculateRange } from "@/shared/utils";
 
 export const KanjiQuery = {
@@ -68,8 +68,15 @@ export const KanjiQuery = {
   delete: async () => {},
   update: async () => {},
   random: async (): Promise<Kanji> => {
+    const levelListArr = [];
+    for (let key in appConfig) {
+      if (appConfig[key as keyof AppConfig] === true) {
+        levelListArr.push(key);
+      }
+    }
+
     const res = await supabase
-      .rpc("getrandomkanjiwithlevel", { levellist: ["5"] })
+      .rpc("getrandomkanjiwithlevel", { levellist: levelListArr })
       .single();
     return res.data as Kanji;
   },

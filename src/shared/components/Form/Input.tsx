@@ -7,12 +7,17 @@ export const Input: Component<{
   label: string;
   onChange?: JSX.ChangeEventHandlerUnion<HTMLInputElement, Event>;
   value: string;
-  className?: string;
+  class?: string;
   error?: string;
   min?: number;
   max?: number;
+  inputClass?: string;
 }> = (props) => {
-  const classes = classNames(props.className || "");
+  const classes = classNames(props.class || "");
+  const inputClasses = classNames(
+    "input-bordered input my-0.5 w-full",
+    props.inputClass || ""
+  );
   return (
     <div class={classes}>
       <label class="text-sm font-semibold">{props.label}</label>
@@ -24,7 +29,7 @@ export const Input: Component<{
         onChange={props.onChange}
         min={props.min}
         max={props.max}
-        class="input-bordered input my-0.5 w-full input-sm"
+        class={inputClasses}
       />
       <Show fallback={undefined} when={!!props.error}>
         <span class="text-red-500 text-xs">{props.error}</span>

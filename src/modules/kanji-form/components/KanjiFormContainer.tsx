@@ -33,19 +33,36 @@ export const KanjiFormContainer: Component<{}> = () => {
         <Input
           label="Kanji Character"
           {...register("character")}
-          className="w-1/3"
+          class="w-1/3"
+          inputClass="input-sm"
         />
         <Input
           label="Level"
           type="number"
           {...register("level")}
-          className="w-1/3"
+          class="w-1/3"
+          inputClass="input-sm"
         />
-        <Input label="Meaning" {...register("meaning")} className="w-1/3" />
+        <Input
+          label="Meaning"
+          {...register("meaning")}
+          class="w-1/3"
+          inputClass="input-sm"
+        />
       </KanjiInputGroupWrapper>
       <KanjiInputGroupWrapper>
-        <Input label="Onyomi" {...register("onyomi")} className="w-1/2" />
-        <Input label="Kunyomi" {...register("kunyomi")} className="w-1/2" />
+        <Input
+          label="Onyomi"
+          {...register("onyomi")}
+          class="w-1/2"
+          inputClass="input-sm"
+        />
+        <Input
+          label="Kunyomi"
+          {...register("kunyomi")}
+          class="w-1/2"
+          inputClass="input-sm"
+        />
       </KanjiInputGroupWrapper>
       <KanjiExamples
         register={register}

@@ -21,7 +21,7 @@ interface FormHookProps<T> {
 }
 
 type FormSubmitHanler = (
-  e: Event & {
+  e?: Event & {
     submitter: HTMLElement;
   }
 ) => void;
@@ -139,11 +139,11 @@ export const useForm = <T extends Record<string, any>>({
   };
 
   const onSubmit = (
-    e: Event & {
+    e?: Event & {
       submitter: HTMLElement;
     }
   ) => {
-    e.preventDefault();
+    e?.preventDefault?.();
     if (!isValid()) {
       return;
     }

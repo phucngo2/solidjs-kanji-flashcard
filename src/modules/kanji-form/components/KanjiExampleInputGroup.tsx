@@ -23,24 +23,28 @@ export const KanjiExampleInputGroup: Component<{
         <Input
           label={`Word`}
           {...props.register(`${props.formPath}.${props.index()}.word`)}
-          className="w-1/2"
+          class="w-1/2"
+          inputClass="input-sm"
         />
         <Input
           label={`Furigana`}
           {...props.register(`${props.formPath}.${props.index()}.furigana`)}
-          className="w-1/2"
+          class="w-1/2"
+          inputClass="input-sm"
         />
       </KanjiInputGroupWrapper>
       <KanjiInputGroupWrapper>
         <Input
           label={`Meaning`}
           {...props.register(`${props.formPath}.${props.index()}.meaning`)}
-          className="w-1/2"
+          class="w-1/2"
+          inputClass="input-sm"
         />
         <Input
           label={`Meaning kanji`}
           {...props.register(`${props.formPath}.${props.index()}.meaning_alt`)}
-          className="w-1/2"
+          class="w-1/2"
+          inputClass="input-sm"
         />
       </KanjiInputGroupWrapper>
     </div>

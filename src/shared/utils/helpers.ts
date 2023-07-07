@@ -1,4 +1,4 @@
-import { SearchQuery } from "./types";
+import { SearchQuery } from "@/shared/types";
 
 export function getProperty(obj: any, path: string) {
   var properties = path.split(".");
