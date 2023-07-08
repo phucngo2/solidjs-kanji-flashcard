@@ -1,6 +1,6 @@
 import { DEFAULT_SWIPE_DISTANCE, appConfig, levelList } from "@/configs";
 import { LevelSwitch } from "@/modules/setting";
-import { Header, Input } from "@/shared/components";
+import { Header, Input, Toggle } from "@/shared/components";
 import { FormValidation, required, useForm, useToast } from "@/shared/hooks";
 import { AppConfig } from "@/shared/types";
 import { StorageHelper } from "@/shared/utils";
@@ -47,20 +47,26 @@ export const SettingContainer: Component<{}> = () => {
 
   return (
     <form
-      class="flex w-full h-full p-5 flex-col items-center space-y-6"
+      class="flex w-full h-full p-5 flex-col items-center space-y-6 overflow-y-auto"
       onSubmit={onSubmit}
     >
       <Header>Settings</Header>
       <For each={levelList}>
         {(level) => <LevelSwitch level={level} register={register} />}
       </For>
-      <Input
-        label="App swipe distance detect"
-        {...register("swipeDistance")}
-        type="number"
-        class="w-full"
-        inputClass="input-md"
-      />
+      <div class="w-full flex flex-row space-x-6">
+        <Input
+          label="App swipe distance detect"
+          {...register("swipeDistance")}
+          type="number"
+          class="w-1/2"
+          inputClass="input-md"
+        />
+        <div class="w-1/2 flex flex-col">
+          <label class="text-sm font-semibold">Show furigana</label>
+          <Toggle {...register("showFurigana")} type="primary" class="my-0.5" />
+        </div>
+      </div>
       <div class="flex flex-row items-center rounded w-full justify-between">
         <button type="button" class="btn" onClick={handleCancel}>
           Cancel
