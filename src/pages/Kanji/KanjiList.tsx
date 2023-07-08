@@ -1,7 +1,8 @@
+import { KanjiManagementContainer } from "@/modules/kanji-management";
 import { Component } from "solid-js";
 
 const KanjiList: Component<{}> = (props) => {
-  return <div></div>;
+  return <KanjiManagementContainer />;
 };
 
 export default KanjiList;

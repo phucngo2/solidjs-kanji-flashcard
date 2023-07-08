@@ -1,26 +1,30 @@
 import { appConfig, supabase } from "@/configs";
 import { Kanji } from "@/models/kanji";
-import { AppConfig, SearchQuery } from "@/shared/types";
+import { AppConfig, SearchQuery as AppSearchQuery } from "@/shared/types";
 import { calculateRange } from "@/shared/utils";
+
+interface SearchQuery extends AppSearchQuery {
+  levelFilter: string;
+}
 
 export const KanjiQuery = {
   list: async (searchQuery: SearchQuery) => {
-    const { start, end } = calculateRange(searchQuery);
-    const queryString = `%${searchQuery.searchKeyword || ""}%`;
+    const limitvalue = searchQuery.perPage;
+    const offsetvalue = (searchQuery.page - 1) * searchQuery.perPage;
 
-    const { data, count } = await supabase
-      .from("kanjis")
-      .select("*, examples(id, word, furigana, meaning, meaning_alt)", {
-        count: "exact",
+    const res = await supabase
+      .rpc("getkanjiswithkeyword", {
+        searchkeyword: searchQuery.searchKeyword || "",
+        limitvalue,
+        offsetvalue,
+        levelfilter: searchQuery.levelFilter || "",
       })
-      .ilike("character", queryString)
-      .or(`meaning.ilike.${queryString}`)
-      .or(`onyomi.ilike.${queryString}`)
-      .or(`kunyomi.ilike.${queryString}`)
-      .or(`"examples.word".ilike.${queryString}`)
-      .range(start, end);
+      .single();
 
-    return { data, count };
+    return res.data as {
+      kanjis: Kanji[];
+      kanji_count: number;
+    };
   },
   get: async (kanjiId: string | number): Promise<Kanji> => {
     const { data } = await supabase

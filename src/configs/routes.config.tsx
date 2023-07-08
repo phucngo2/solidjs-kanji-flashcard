@@ -7,6 +7,7 @@ import { Route, Router, Routes } from "@solidjs/router";
 import { Component, lazy } from "solid-js";
 
 const Home = lazy(() => import("@/pages/Home"));
+const Setting = lazy(() => import("@/pages/Setting"));
 const Random = lazy(() => import("@/pages/Random"));
 const KanjiList = lazy(() => import("@/pages/Kanji/KanjiList"));
 const KanjiDetail = lazy(() => import("@/pages/Kanji/KanjiDetail"));
@@ -19,12 +20,15 @@ export const RouteConfig: Component<{}> = () => {
       <Routes>
         <Route path="/" component={DefaultLayout}>
           <Route path="/" component={Home} />
+          <Route path="/setting" component={Setting} />
           <Route path="/random" component={Random} />
-          <Route path="/kanji" component={KanjiList} />
-          <Route
-            path="/kanji/:id"
-            element={<RematchDynamic component={KanjiDetail} />}
-          />
+          <Route path="/kanji">
+            <Route path="/" component={KanjiList} />
+            <Route
+              path="/:id"
+              element={<RematchDynamic component={KanjiDetail} />}
+            />
+          </Route>
         </Route>
         <Route path="/protected" component={ProtectedLayout}>
           <Route path="/kanji" component={KanjiManagement} />

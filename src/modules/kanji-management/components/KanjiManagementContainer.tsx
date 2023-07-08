@@ -1,18 +1,20 @@
 import { Component, Match, Switch } from "solid-js";
 import { useKanjiListQuery } from "@/modules/kanji-management";
-import { Loading, SearchBar } from "@/shared/components";
+import { Header, Loading, SearchBar } from "@/shared/components";
+import { useListManagement } from "@/shared/hooks/use-list-management";
 
 export const KanjiManagementContainer: Component<{}> = () => {
-  const kanjiListQuery = useKanjiListQuery();
+  // const kanjiListQuery = useKanjiListQuery();
+  const { page, searchKeyword, onPaginate, onSearch } = useListManagement();
   return (
     <Switch>
-      <Match when={kanjiListQuery.isLoading}>
+      <Match when={false}>
         <Loading />
       </Match>
-      <Match when={kanjiListQuery.isSuccess}>
+      <Match when={true}>
         <div class="w-full h-full flex flex-col p-5">
           <div class="w-full flex flex-row justify-between items-center">
-            <h3 class="font-bold">Kanji</h3>
+            <Header>Kanji</Header>
             <SearchBar />
           </div>
           <div class="flex flex-row flex-1"></div>

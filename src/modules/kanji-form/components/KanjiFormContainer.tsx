@@ -1,4 +1,4 @@
-import { Kanji } from "@/models/kanji";
+import { Kanji, KanjiQuery } from "@/models/kanji";
 import { useKanjiCreateMutation } from "@/modules/kanji-form";
 import { Input } from "@/shared/components";
 import { FormValidation, required, useForm } from "@/shared/hooks";
