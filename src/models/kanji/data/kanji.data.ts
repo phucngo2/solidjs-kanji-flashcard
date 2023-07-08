@@ -1,7 +1,6 @@
 import { appConfig, supabase } from "@/configs";
 import { Kanji } from "@/models/kanji";
 import { AppConfig, SearchQuery as AppSearchQuery } from "@/shared/types";
-import { calculateRange } from "@/shared/utils";
 
 interface SearchQuery extends AppSearchQuery {
   levelFilter: string;
@@ -50,7 +49,7 @@ export const KanjiQuery = {
       return false;
     }
 
-    if (insertKanji.data) {
+    if (insertKanji.data && examples && examples.length > 0) {
       const responses = await Promise.all(
         examples.map((example) => {
           const exampleToInsert = {

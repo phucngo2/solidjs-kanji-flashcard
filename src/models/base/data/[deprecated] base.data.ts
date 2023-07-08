@@ -12,7 +12,6 @@ import {
   query,
   updateDoc,
   where,
-  //@ts-ignore
 } from "firebase/firestore";
 import { flattenDeep } from "lodash";
 

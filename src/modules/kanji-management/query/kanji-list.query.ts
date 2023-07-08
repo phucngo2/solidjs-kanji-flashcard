@@ -1,9 +1,14 @@
 import { KanjiQuery } from "@/models/kanji";
-import { createQuery } from "@tanstack/solid-query";
+import { SearchQuery } from "@/shared/types";
+import { createMutation } from "@tanstack/solid-query";
+
+interface Query extends SearchQuery {
+  levelFilter: string;
+}
 
 export const useKanjiListQuery = () => {
-  return createQuery({
-    queryKey: () => ["query-list"],
-    queryFn: KanjiQuery.list,
+  return createMutation({
+    mutationKey: ["query-list"],
+    mutationFn: (query: Query) => KanjiQuery.list(query),
   });
 };

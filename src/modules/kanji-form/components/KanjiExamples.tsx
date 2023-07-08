@@ -1,7 +1,7 @@
+import { Kanji } from "@/models/kanji";
 import { FormRegister, useConfirmation } from "@/shared/hooks";
 import { Accessor, Component, For } from "solid-js";
 import { KanjiExampleInputGroup } from ".";
-import { Kanji } from "@/models/kanji";
 
 export const KanjiExamples: Component<{
   values: Accessor<Kanji>;

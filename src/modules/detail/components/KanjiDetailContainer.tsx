@@ -1,16 +1,17 @@
 import { KanjiDetailRender, useKanjiDetailQuery } from "@/modules/detail";
 import { useSwipe } from "@/shared/hooks";
 import { useNavigate, useParams } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Component, onMount } from "solid-js";
 
 export const KanjiDetailContainer: Component<{}> = () => {
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const kanjiDetailQuery = useKanjiDetailQuery(params.id, {
+  const kanjiDetailQuery = useKanjiDetailQuery({
     onSuccess: (data) => {
       if (!data) navigate("/kanji");
     },
   });
+  onMount(() => kanjiDetailQuery.mutate(params.id));
   const swipeHanlers = useSwipe({
     handleLeftSwipe: () => navigate(`/kanji/${parseInt(params.id) + 1}`),
     handleRightSwipe: () => navigate(`/kanji/${parseInt(params.id) - 1}`),

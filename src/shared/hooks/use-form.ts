@@ -175,7 +175,7 @@ export const useForm = <T extends Record<string, any>>({
   };
 
   const clearForm = () => {
-    setFormValues(() => ({} as T));
+    setFormValues(() => ({}) as T);
     setErrors(() => ({}));
   };
 

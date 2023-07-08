@@ -1,4 +1,5 @@
 import {
+  KanjiDetailToolbar,
   KanjiExample,
   useKanjiDetailQuery,
   useKanjiRandomQuery,
@@ -16,7 +17,7 @@ export const KanjiDetailRender: Component<{
 }> = (props) => {
   return (
     <Switch>
-      <Match when={props.query.isFetching}>
+      <Match when={props.query.isLoading}>
         <Loading />
       </Match>
       <Match when={!!props.query.data}>
@@ -56,12 +57,13 @@ export const KanjiDetailRender: Component<{
             </div>
           </div>
           {/* Bottom Content */}
-          <div class="flex w-full flex-col space-y-5 p-6">
+          <div class="flex w-full flex-col space-y-5 p-6 overflow-y-auto pb-24">
             <For each={shuffle(props.query.data?.examples)}>
               {(item, _) => <KanjiExample kanjiExample={item} />}
             </For>
           </div>
         </div>
+        <KanjiDetailToolbar />
       </Match>
     </Switch>
   );

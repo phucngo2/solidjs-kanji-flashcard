@@ -1,4 +1,4 @@
-import { Kanji, KanjiQuery } from "@/models/kanji";
+import { Kanji } from "@/models/kanji";
 import { useKanjiCreateMutation } from "@/modules/kanji-form";
 import { Input } from "@/shared/components";
 import { FormValidation, required, useForm } from "@/shared/hooks";
@@ -30,6 +30,12 @@ export const KanjiFormContainer: Component<{}> = () => {
     >
       <h3 class="text-2xl font-bold">Kanji</h3>
       <KanjiInputGroupWrapper>
+        {/* <Input
+          label="Id"
+          {...register("id")}
+          class="w-1/3"
+          inputClass="input-sm"
+        /> */}
         <Input
           label="Kanji Character"
           {...register("character")}

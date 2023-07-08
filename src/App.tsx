@@ -1,4 +1,6 @@
 import { RouteConfig } from "@/configs";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import type { Component } from "solid-js";
 

@@ -37,11 +37,12 @@ export const SettingContainer: Component<{}> = () => {
       type: "success",
       message: "Saved successfully!",
     });
+    window.location.reload();
   }
 
   function handleSaveAndStart() {
     handleSave();
-    navigate("/random");
+    window.location.assign("/random");
   }
 
   return (
@@ -72,7 +73,7 @@ export const SettingContainer: Component<{}> = () => {
           class="btn btn-primary"
           onClick={handleSaveAndStart}
         >
-          Save and start
+          Start
         </button>
       </div>
       {contentProvider}

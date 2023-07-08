@@ -1,17 +1,14 @@
 import { Kanji, KanjiQuery } from "@/models/kanji";
-import { createQuery } from "@tanstack/solid-query";
+import { createMutation } from "@tanstack/solid-query";
 
 interface Options {
   onSuccess?: (data?: Kanji) => void;
 }
 
-export const useKanjiDetailQuery = (
-  kanjiId: string | number,
-  options?: Options
-) => {
-  return createQuery({
-    queryKey: () => ["kanji-detail", kanjiId],
-    queryFn: ({ queryKey }) => KanjiQuery.get(queryKey[1]),
+export const useKanjiDetailQuery = (options?: Options) => {
+  return createMutation({
+    mutationKey: ["kanji-detail"],
+    mutationFn: (kanjiId: string | number) => KanjiQuery.get(kanjiId),
     onSuccess: options?.onSuccess,
   });
 };

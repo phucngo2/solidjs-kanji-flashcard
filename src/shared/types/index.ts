@@ -13,3 +13,7 @@ export type Level = 1 | 2 | 3 | 4 | 5;
 export type AppConfig = {
   swipeDistance: number;
 } & Partial<Record<Level, boolean>>;
+
+export type ThemePaleteType = "primary" | "secondary" | "accent";
+export type ThemeActionType = "info" | "warning" | "error" | "success";
+export type ThemeType = ThemePaleteType | ThemeActionType;

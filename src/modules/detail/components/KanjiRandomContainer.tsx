@@ -1,11 +1,18 @@
 import { KanjiDetailRender, useKanjiRandomQuery } from "@/modules/detail";
 import { useSwipe } from "@/shared/hooks";
-import { Component } from "solid-js";
+import { useNavigate } from "@solidjs/router";
+import { Component, onMount } from "solid-js";
 
 export const KanjiRandomContainer: Component<{}> = () => {
-  const kanjiRandomQuery = useKanjiRandomQuery();
+  const naigate = useNavigate();
+  const kanjiRandomQuery = useKanjiRandomQuery({
+    onSuccess: (data) => {
+      if (!data) naigate("/setting");
+    },
+  });
+  onMount(() => kanjiRandomQuery.mutate());
   const swipeHanlers = useSwipe({
-    handleSwipe: kanjiRandomQuery.refetch,
+    handleSwipe: kanjiRandomQuery.mutate,
   });
   return (
     <KanjiDetailRender query={kanjiRandomQuery} swipeHanlers={swipeHanlers} />
