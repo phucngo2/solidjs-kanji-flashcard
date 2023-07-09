@@ -4,10 +4,10 @@ import { useNavigate } from "@solidjs/router";
 import { Component, onMount } from "solid-js";
 
 export const KanjiRandomContainer: Component<{}> = () => {
-  const naigate = useNavigate();
+  const navigate = useNavigate();
   const kanjiRandomQuery = useKanjiRandomQuery({
     onSuccess: (data) => {
-      if (!data) naigate("/setting");
+      if (!data) navigate("/setting");
     },
   });
   onMount(() => kanjiRandomQuery.mutate());

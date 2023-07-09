@@ -30,10 +30,10 @@ export const RouteConfig: Component<{}> = () => {
             />
           </Route>
         </Route>
-        {/* <Route path="/protected" component={ProtectedLayout}>
+        <Route path="/protected" component={ProtectedLayout}>
           <Route path="/kanji" component={KanjiManagement} />
           <Route path="/kanji/form/:id" component={KanjiForm} />
-        </Route> */}
+        </Route>
         <Route path="*" element={<Navigate href="/" />} />
       </Routes>
     </Router>
