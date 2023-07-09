@@ -20,7 +20,9 @@ export const Input: Component<{
   );
   return (
     <div class={classes}>
-      <label class="text-sm font-semibold">{props.label}</label>
+      <label class="text-sm font-semibold" for={props.name}>
+        {props.label}
+      </label>
       <input
         type={props.type || "text"}
         name={props.name}

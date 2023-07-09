@@ -59,12 +59,20 @@ export const SettingContainer: Component<{}> = () => {
           label="App swipe distance detect"
           {...register("swipeDistance")}
           type="number"
-          class="w-1/2"
+          class="w-1/3"
           inputClass="input-md"
         />
-        <div class="w-1/2 flex flex-col">
+        <div class="w-1/3 flex flex-col">
           <label class="text-sm font-semibold">Show furigana</label>
           <Toggle {...register("showFurigana")} type="primary" class="my-0.5" />
+        </div>
+        <div class="w-1/3 flex flex-col">
+          <label class="text-sm font-semibold">Show alternative meaning</label>
+          <Toggle
+            {...register("showMeaningAlt")}
+            type="primary"
+            class="my-0.5"
+          />
         </div>
       </div>
       <div class="flex flex-row items-center rounded w-full justify-between">

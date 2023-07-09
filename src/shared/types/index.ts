@@ -13,6 +13,7 @@ export type Level = 1 | 2 | 3 | 4 | 5;
 export type AppConfig = {
   swipeDistance: number;
   showFurigana: boolean;
+  showMeaningAlt: boolean;
 } & Partial<Record<Level, boolean>>;
 
 export type ThemePaleteType = "primary" | "secondary" | "accent";
