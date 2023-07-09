@@ -114,6 +114,12 @@ function validation(): FormValidation<any> {
         errorMessage: `${capitalize(item)} is required!`,
       },
     ];
+    if (item == "character") {
+      validators.push({
+        validator: (character: string) => character.length == 1,
+        errorMessage: `Character must have only 1 character!!`,
+      });
+    }
     if (item == "level") {
       validators.push({
         validator: (level: number) => level > 0 && level < 6,
