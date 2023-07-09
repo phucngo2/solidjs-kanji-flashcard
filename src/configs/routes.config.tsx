@@ -3,7 +3,7 @@ import {
   ProtectedLayout,
   RematchDynamic,
 } from "@/shared/components";
-import { Route, Router, Routes } from "@solidjs/router";
+import { Navigate, Route, Router, Routes } from "@solidjs/router";
 import { Component, lazy } from "solid-js";
 
 const Home = lazy(() => import("@/pages/Home"));
@@ -34,6 +34,7 @@ export const RouteConfig: Component<{}> = () => {
           <Route path="/kanji" component={KanjiManagement} />
           <Route path="/kanji/form/:id" component={KanjiForm} />
         </Route> */}
+        <Route path="*" element={<Navigate href="/" />} />
       </Routes>
     </Router>
   );
