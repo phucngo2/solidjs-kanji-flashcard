@@ -17,7 +17,7 @@ export const KanjiExample: Component<{
       </div>
       <div class="max-w-[50%] flex flex-col items-end">
         <div class="text-right">{kanjiExample.meaning}</div>
-        <Show when={!!kanjiExample.meaning_alt}>
+        <Show when={!!appConfig?.showMeaningAlt && !!kanjiExample.meaning_alt}>
           <div class="text-xs">({kanjiExample.meaning_alt})</div>
         </Show>
       </div>
