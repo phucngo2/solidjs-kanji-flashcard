@@ -10,11 +10,18 @@ export const KanjiRandomContainer: Component<{}> = () => {
       if (!data) navigate("/setting");
     },
   });
+  const handleLeft = kanjiRandomQuery.mutate;
+  const handleRight = kanjiRandomQuery.mutate;
   onMount(() => kanjiRandomQuery.mutate());
   const swipeHanlers = useSwipe({
     handleSwipe: kanjiRandomQuery.mutate,
   });
   return (
-    <KanjiDetailRender query={kanjiRandomQuery} swipeHanlers={swipeHanlers} />
+    <KanjiDetailRender
+      query={kanjiRandomQuery}
+      swipeHanlers={swipeHanlers}
+      handleLeft={handleLeft}
+      handleRight={handleRight}
+    />
   );
 };

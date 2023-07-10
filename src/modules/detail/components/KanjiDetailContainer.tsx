@@ -12,11 +12,18 @@ export const KanjiDetailContainer: Component<{}> = () => {
     },
   });
   onMount(() => kanjiDetailQuery.mutate(params.id));
+  const handleLeft = () => navigate(`/kanji/${parseInt(params.id) + 1}`);
+  const handleRight = () => navigate(`/kanji/${parseInt(params.id) - 1}`);
   const swipeHanlers = useSwipe({
-    handleLeftSwipe: () => navigate(`/kanji/${parseInt(params.id) + 1}`),
-    handleRightSwipe: () => navigate(`/kanji/${parseInt(params.id) - 1}`),
+    handleLeftSwipe: handleLeft,
+    handleRightSwipe: handleRight,
   });
   return (
-    <KanjiDetailRender query={kanjiDetailQuery} swipeHanlers={swipeHanlers} />
+    <KanjiDetailRender
+      query={kanjiDetailQuery}
+      swipeHanlers={swipeHanlers}
+      handleLeft={handleRight}
+      handleRight={handleLeft}
+    />
   );
 };
