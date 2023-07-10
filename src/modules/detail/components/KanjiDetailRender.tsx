@@ -14,6 +14,8 @@ export const KanjiDetailRender: Component<{
     | ReturnType<typeof useKanjiRandomQuery>
     | ReturnType<typeof useKanjiDetailQuery>;
   swipeHanlers: ReturnType<typeof useSwipe>;
+  handleLeft: () => void;
+  handleRight: () => void;
 }> = (props) => {
   return (
     <Switch>
@@ -63,7 +65,10 @@ export const KanjiDetailRender: Component<{
             </For>
           </div>
         </div>
-        <KanjiDetailToolbar />
+        <KanjiDetailToolbar
+          handleLeft={props.handleLeft}
+          handleRight={props.handleRight}
+        />
       </Match>
     </Switch>
   );
