@@ -25,9 +25,9 @@
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@solidjs/router": "^0.8.2",
     "@supabase/supabase-js": "^2.26.0",
-    "@tanstack/solid-query": "^4.29.19",
+    "@tanstack/solid-query": "^4.29.23",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
-    "solid-js": "^1.7.6"
+    "solid-js": "^1.7.8"
   }
 }
