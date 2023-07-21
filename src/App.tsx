@@ -4,7 +4,13 @@ import "@fortawesome/fontawesome-free/css/solid.min.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import type { Component } from "solid-js";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // default: true
+    },
+  },
+});
 
 const App: Component = () => {
   return (
